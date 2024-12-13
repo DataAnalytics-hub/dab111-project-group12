@@ -38,7 +38,7 @@ with sqlite3.connect('database.db') as conn:
         print(f'Collecting {ticker}')
         data_count = 0
         try: 
-            for row in client.list_aggs(ticker, 5, 'minute', '2024-01-01', '2024-12-10', True, 'desc', 50000):
+            for row in client.list_aggs(ticker, multiplier, timespan, from_, to_, True, 'desc', 50000):
                 entry = (row.timestamp//1000,row.open,row.close,row.high,row.low)
                 cur.execute(f'INSERT INTO {ticker.lower()} VALUES(?, ?, ?, ?, ?)', entry)
                 data_count += 1
