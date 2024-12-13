@@ -32,6 +32,13 @@ The service stands out for its fast response times and high reliability, making 
     *   This script will take more than 4min to complete due to the polygon's restriction of only 5 API calls per minute
     *   Feel free to explore this script and modify any parameters as you wish
 
+### Running the website
+
+You can run the webserver in 2 ways.
+
+*   Run `app.py` script as `python app.py` or `python3 app.py`
+*   Another (Recommended) way is to open a terminal in the project root folder and run `flask --app app run`
+
 Team Information
 ----------------
 

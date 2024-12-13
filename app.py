@@ -1,3 +1,4 @@
+# Imports
 from datetime import datetime, timezone
 from flask import Flask, Response, g, render_template
 from matplotlib.backends.backend_agg import FigureCanvasAgg as Canvas
@@ -7,6 +8,9 @@ import io, sqlite3, pandas as pd, seaborn as sns
 plt.style.use('ggplot')
 mpl.use('Agg')
 
+
+
+# Application Setup
 app = Flask(__name__)
 app.config.setdefault('TICKERS', {
     'AAPL': 'Apple Inc. Stock Value in United States Dollar',
@@ -15,6 +19,9 @@ app.config.setdefault('TICKERS', {
     'AMZN': 'Amazon.com Inc. Stock Value in United States Dollar',
 })
 
+
+
+# Database Handlers accross requests
 def db():
     db = getattr(g, '_database', None)
     if db is None:
@@ -28,6 +35,17 @@ def close_connection(exception):
         db.connection.close()
 
 
+
+# Helper Functions
+def get_dataset(ticker):
+    data = db().execute(f'SELECT timestamp_, close_ FROM {ticker.lower()} ORDER BY timestamp_').fetchall()
+    df = pd.DataFrame(data, columns=['timestamp', 'closing_price'])
+    df['timestamp'] = pd.to_datetime(df['timestamp'], unit='s')
+    return (app.config.get('TICKERS')[ticker], df)
+
+
+
+# Route Handlers
 @app.get('/')
 @app.get('/about')
 def about():
@@ -50,12 +68,6 @@ def plots():
     g.nav_active = 'plots'
     return render_template('visuals.html', names = app.config.get('TICKERS').keys())
 
-def get_dataset(ticker):
-    data = db().execute(f'SELECT timestamp_, close_ FROM {ticker.lower()} ORDER BY timestamp_').fetchall()
-    df = pd.DataFrame(data, columns=['timestamp', 'closing_price'])
-    df['timestamp'] = pd.to_datetime(df['timestamp'], unit='s')
-    return (app.config.get('TICKERS')[ticker], df)
-
 @app.get('/plot/<string:idx>')
 def plot(idx):
     fig = Figure((10, 6), dpi=120)
@@ -70,5 +82,6 @@ def plot(idx):
     return Response(buff.getvalue(), mimetype='image/png')
 
 
+# Development run using normal script execution
 if __name__ == '__main__':
     app.run('0.0.0.0', debug=True, port=3300)
