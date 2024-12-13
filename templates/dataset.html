@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block TITLE %}Dataset | Stock Market Data{% endblock %}
+{% block CONTENT %}
+<div class="mt-2"></div>
+<h2>Dataset Samples</h2>
+{% for name, df in datasets.items() %}
+<h5>{{df['description']}}</h5>
+<hr>
+{% if df['data']|length == 0 %}
+<p>No Data Available for {{name}}, to refresh datasets please run <strong>datacollection.py</strong> script.</p>
+{% else %}
+<p class="">Count: {{df['count']}} rows</p>
+<div class="row">
+  <div class="col-md-10 mx-auto">
+    <table class="table table-sm table-striped table-hover">
+      <thead>
+        <th scope="col">#</th>
+        <th scope="col">Time Stamp</th>
+        <th scope="col">Opening Price</th>
+        <th scope="col">Closing Price</th>
+        <th scope="col">Highest Price</th>
+        <th scope="col">Lowest Price</th>
+      </thead>
+      <tbody class="table-group-divider">
+        {% for row in df['data'] %}
+        <tr>
+          <th scope="row">{{loop.index0 + 1}}</th>
+          <td>{{row[0]}}</td>
+          <td>{{"%9.02f"|format(row[1])}}</td>
+          <td>{{"%9.02f"|format(row[2])}}</td>
+          <td>{{"%9.02f"|format(row[3])}}</td>
+          <td>{{"%9.02f"|format(row[4])}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p>&#8226;&#8226;&#8226;</p>
+  </div>
+</div>
+    {% endif %}
+    {% endfor %}
+{% endblock %}

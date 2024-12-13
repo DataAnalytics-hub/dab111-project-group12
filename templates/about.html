@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block TITLE %}About | Stock Market Data{% endblock %}
+{% block CONTENT %}
+<div class="mt-2"></div>
+<div class="row">
+  <div class="col-12">
+    <h2>Stock Market Data Set</h2>
+    <p>
+      The dataset we choose is the stocks information of 4 tech companies namely, Apple, Microsoft, Amazon and Nvdia.
+      We collected stocks values from Jan 1, 2024 to Dec 10, 2024 with 5min timespans.
+    </p>
+    <h3>Data Source</h3>
+    <p>
+      <a href="https://polygon.io/"><strong>Polygon.io</strong></a> is a data platform that provides high-quality financial market data through APIs.
+      It offers access to real-time and historical data for stocks, options, forex, and cryptocurrencies, catering to developers and businesses in the financial sector.
+      The platform is known for its ease of integration, with RESTful APIs that are well-documented and simple to use.
+      Polygon.io also provides websocket support for streaming real-time market data, enabling users to build trading algorithms, analytical tools, and financial dashboards effectively.
+    </p>
+    <p>
+      The service stands out for its fast response times and high reliability, making it a popular choice for both individual developers and enterprise clients.
+      With flexible pricing plans, including a free tier for basic use, it appeals to a wide range of users.
+      Polygon.io supports global markets, making it suitable for projects with international scope.
+      Additionally, the platform offers resources like community forums and example projects, making it beginner-friendly while still robust enough for advanced applications.
+    </p>
+    <p>
+      <ul class="list-unstyled">
+        <li>Fetched Columns -</li>
+        <dl class="row">
+          <dt class="col-sm-1">timestamp</dt>
+          <dd class="col-sm-11">The Unix Msec timestamp for the start of the timespan window.</dd>
+          
+          <dt class="col-sm-1">open</dt>
+          <dd class="col-sm-11">The open price for the symbol in the given time period.</dd>
+          
+          <dt class="col-sm-1">close</dt>
+          <dd class="col-sm-11">The close price for the symbol in the given time period.</dd>
+          
+          <dt class="col-sm-1">high</dt>
+          <dd class="col-sm-11">The highest price for the symbol in the given time period.</dd>
+          
+          <dt class="col-sm-1">low</dt>
+          <dd class="col-sm-11">The lowest price for the symbol in the given time period.</dd>
+        </dl>
+      </ul>
+    </p>
+    <h3>Instructions to get your own API Key,</h3>
+    <ul>
+      <li>Sign Up for a free account at <a href="https://polygon.io/">Polygon.io</a></li>
+      <li>Verify your email and login to your account</li>
+      <li>Click on <code>Dashboard</code> on the right-side of navigation bar</li>
+      <li>Click on <code>Keys</code> on the left-panel</li>
+      <li>Use the default key or create a new key as required</li>
+    </ul>
+    <h3>Instructions to use the API key to update this dataset,</h3>
+    <ul>
+      <li>Create <code>credentials.py</code> file in project root folder</li>
+      <li>Create <code>polygon_api_key</code> variable in the file with the key as its value</li>
+      <li>
+        Save and run <code>datacollection.py</code> script to rebuild the dataset
+        <ul>
+          <li>This script will take more than 4min to complete due to the polygon's restriction of only 5 API calls per minute</li>
+          <li>Feel free to explore this script and modify any parameters as you wish</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="col-12">
+    <h2>Team Information</h2>
+    <h4>Group 12</h4>
+    <span class="blockquote">Members,</span>
+    <ul>
+      <li>0858474 - Kishore Arra</li>
+      <li>0873467 - Deepesh Dixit</li>
+      <li>0876264 - Geetha Siva Srinivas Gollapalli</li>
+      <li>0873782 - Rajesh Thota</li>
+      <li>0872873 - Yogeshwar Moruboyina</li>
+    </ul>
+  </div>
+</div>
+{% endblock %}

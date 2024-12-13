@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block TITLE %}Visuals | Stock Market Data{% endblock %}
+{% block CONTENT %}
+<!-- <h6>{{names}}</h6> -->
+<div class="row">
+  <div class="col-11 mx-auto">
+    <!-- <img src="{{ url_for('plot', idx='X:BTCUSD') }}" type="image/png" width="100%"> -->
+     {% for name in names %}
+     {% if loop.index0 != 0 %}<hr>{%endif%}
+    <div class="mt-3"></div>
+    <img src="{{ url_for('plot', idx=name) }}" type="image/png" width="100%">
+    <div class="mt-3"></div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
